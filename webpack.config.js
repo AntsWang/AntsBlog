@@ -12,7 +12,8 @@ module.exports = {
   devServer: {                                         
     contentBase: path.join(__dirname, 'dist'),           
     compress: true,
-    port: 9000
+    port: 9000,
+    historyApiFallback:true
   },
   module: {                                            
     rules: [                                          
@@ -23,7 +24,10 @@ module.exports = {
         use: {
           loader: 'babel-loader',                      
           options: {
-            presets: ['es2017', 'react']
+            presets: ['es2017', 'react'],
+            plugins: [//修改这里的
+              ["import", {libraryName: "antd", style: "css"}]//修改这里的
+          ] //修改这里的
           }
         }
       },

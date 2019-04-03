@@ -1,0 +1,25 @@
+.content{
+    margin: 20px auto;
+    background: #fff;
+    width:960px;
+}
+.split-line{
+    border-bottom: 1px dashed #ccc;
+    margin-top:10px;
+    margin-bottom: 10px;
+}
+.article-item{
+    border-bottom: 1px solid #ccc;
+    padding:20px 0;
+}
+.more{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    height:40px;
+    width:100%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    background: #ccc;
+    border-radius: 30px;
+}
