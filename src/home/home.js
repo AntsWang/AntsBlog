@@ -5,15 +5,21 @@ import './home.css';
 
 import Header from '../components/header/header';
 import Content from '../components/content/content';
+import {setPageTitle} from '../redux/action.js'
 import Util from '../http/http.js';
 
-export default class Home extends Component{
+import {connect} from 'react-redux';
+
+import Storage from '../storage/index';
+
+class Home extends Component{
   constructor(props){
   super(props);
   //this.getData = this.getData.bind(this);
   }
   componentDidMount(){
-    console.log(1111);
+    console.log(this.props);
+    console.log(Storage.get("lll"));
       this.getData();
   }
   getData(){
@@ -32,3 +38,18 @@ console.log(err);
         </div>)
   }
 }
+const mapStateToProps = (state)=>{
+  return {
+   pageTitle:state.pageTitle.title
+  }
+}
+
+const mapDispatchToProps = (dispatch,props)=>{
+  return {
+    setPageTitle(data){
+       dispatch(setPageTitle(data))
+    }
+  }
+
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Home)
