@@ -8,7 +8,7 @@ export default class Header extends Component {
     return (
       <div className="header">
         <a className="title" href="#">Ants的Blog</a>
-        <a className="h-1 flex1">首页</a> 
+        <a className="h-1 flex1">首页a</a> 
         <a className="h-2 flex1">分类</a>
         <a className="h-3 flex1">归档</a>
         <a className="h-4 flex1">留言板</a>

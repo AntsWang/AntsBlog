@@ -2,9 +2,17 @@ import {
     Menu, Dropdown, Icon, message,Avatar 
   } from 'antd';
 import React,{ Component } from 'react';
-  export default class DropdownItem extends Component{
+import {connect} from 'react-redux';
+import {loginOut} from '../redux/action';
+import { BrowserRouter as Router, Route, Link,Redirect,Switch,withRouter } from "react-router-dom";
+class DropdownItem extends Component{
     onClick({ key }){
-        message.info(`Click on item ${key}`);
+      if(key==2){
+        this.props.loginOut();
+        console.log( this.props);
+         this.props.history.replace('/');
+      }
+        message.info(`Click on item ${key}p`);
       };
       render(){
         const menu = (
@@ -26,3 +34,19 @@ import React,{ Component } from 'react';
       }
 
   }
+
+  const mapStateToProps = (state)=>{
+    return {
+     pageTitle:state.pageTitle.title
+    }
+  }
+  
+  const mapDispatchToProps = (dispatch,props)=>{
+    return {
+      loginOut(){
+         dispatch(loginOut())
+      }
+    }
+  
+  }
+  export default withRouter(connect(mapStateToProps,mapDispatchToProps)(DropdownItem))

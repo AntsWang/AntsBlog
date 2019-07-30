@@ -6,3 +6,20 @@ export function setPageTitle(data){
   })
     }
 }
+
+export function loginOut(){
+  return (dispatch,getState)=>{
+dispatch({
+    type:'LOGIN_OUT',
+    payload:"LOGIN_OUT"
+})
+  }
+}
+export function loginIn(){
+  return (dispatch,getState)=>{
+dispatch({
+    type:'LOGIN_IN',
+    payload:"LOGIN_IN"
+})
+  }
+}

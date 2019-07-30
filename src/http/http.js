@@ -1,4 +1,5 @@
 const util = {
+    baseUrl:'http://192.168.1.3:8080',
     get:function(url,successCallback,failCallback){
         fetch(url,{
             headers:{

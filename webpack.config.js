@@ -9,6 +9,10 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     filename: 'bunlde.js'
   },
+  resolve: {
+    extensions: ['.js', '.jsx','.json'],
+
+  },
   devServer: {                                         
     contentBase: path.join(__dirname, 'dist'),           
     compress: true,

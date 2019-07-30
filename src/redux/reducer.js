@@ -8,6 +8,25 @@ function pageTitle(state={title:"qbc"},action){
         return state;
     }
 }
+function login(state={loginStatus:false},action){
+    switch(action.type){
+        case 'LOGIN_IN':
+             return Object.assign({},state,{loginStatus:action.payload})
+          default:
+          return state;
+    }
+ }
+function loginOut(state = {loginStatus:false},action){
+    console.log(2222);
+   switch(action.type){
+       case 'LOGIN_OUT':
+            return Object.assign({},state,{loginStatus:action.payload})
+         default:
+         return state;
+   }
+}
 export default combineReducers({
-   pageTitle
+   pageTitle,
+   login,
+   loginOut
 })
