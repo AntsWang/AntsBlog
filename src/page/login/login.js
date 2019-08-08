@@ -1,21 +1,36 @@
 import React from 'react'
-import  { Form, Icon, Input, Button, Checkbox, } from "antd";
+import  { Form, Icon, Input, Button, Checkbox,message } from "antd";
 import './login.css'
 import Storage from '../../storage/index';
 import {connect} from 'react-redux';
 import {loginIn,loginOut} from '../../redux/action';
 import {Link} from 'react-router-dom';
+import Utils from '../../http/http';
 class NormalLoginForm extends React.Component {
   handleSubmit(e){
+    let that = this;
     e.preventDefault();
     console.log(this.props);
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        let param = {
+          userName:values.userName,
+          password:values.password
+        }
+        Utils.post(Utils.baseUrl+'/login',param,function(res){
+          console.log(res)
+          message.info(res.message);
+          if(res.flag=='SUCCESS'){
+            that.props.history.replace({pathname:"/home"});
+          }
 
+        },function(err){
+          console.log(err);
+        })
         
-        Storage.set("user",values);
-        this.props.history.replace({pathname:"/home"});
-        console.log('Received values of form: ', values);
+        // Storage.set("user",values);
+        // this.props.history.replace({pathname:"/home"});
+        // console.log('Received values of form: ', values);
       }
     });
   }

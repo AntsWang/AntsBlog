@@ -8,6 +8,7 @@ import Utils from '../../http/http';
 class NormalLoginForm extends React.Component {
   handleSubmit(e){
     e.preventDefault();
+    let that = this;
     this.props.form.validateFields((err, values) => {
       if (!err) {
         let {userName,password,confirm_password} = values;
@@ -20,6 +21,11 @@ class NormalLoginForm extends React.Component {
           }
           Utils.post(Utils.baseUrl+'/addUser',param,function(res){
             console.log(res)
+            message.info(res.message);
+            if(res.flag=='SUCCESS'){
+              that.props.history.replace({pathname:"/home"});
+            }
+
           },function(err){
             console.log(err);
           })

@@ -25,13 +25,6 @@ app.use(cors());
 app.use(express.static(__dirname + '/dist'));
 var sqlConnect = mysql.createConnection(mysql_config);
 sqlConnect.connect();
-var sql = 'select * from user';
-sqlConnect.query(sql,function(err,result){
-if(err){
-    console.log('err',err.message);
-}
-console.log(result);
-})
 
 app.all("*", function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -48,10 +41,90 @@ app.get('/list', function (request, response) {
     // response.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});//设置response编码为utf-8
     response.json(JSON.stringify(data))
 })
+app.post('/login',function(req,res){
+    let name = req.body.userName,password = req.body.password;
+    let sql2 = `select * from user where username='${name}'`;
+     let obj = {
+         flag:'SUCCESS',
+         data:[],
+         message:'注册成功'
+     }
+     sqlConnect.query(sql2,function(err,result){
+         console.log(err,result);
+        if(err){
+            console.log('err',err.message);
+            obj = {
+                flag:'FAIL',
+                data:[],
+                message:'登陆失败'
+            }
+            res.send(JSON.stringify(obj))
+        }
+        console.log(result);
+        if(result.length<=0){
+            obj = {
+                flag:'FAIL',
+                data:[],
+                message:'用户不存在'
+            }
+            res.send(JSON.stringify(obj))
+        }else{
+            obj = {
+                flag:'SUCCESS',
+                data:[],
+                message:'登陆成功'
+            }
+            res.send(JSON.stringify(obj)) 
+        } })
+})
 app.post('/addUser',function(req,res){
-    console.log(req.body);
-    res.json(JSON.stringify(req.body));
-
+    let name = req.body.userName,password = req.body.password;
+    let sql1 = `insert into user (username,password) values('${name}','${password}')`;
+    let sql2 = `select * from user where username='${name}'`;
+     let obj = {
+         flag:'SUCCESS',
+         data:[],
+         message:'注册成功'
+     }
+     sqlConnect.query(sql2,function(err,result){
+         console.log(err,result);
+        if(err){
+            console.log('err',err.message);
+            obj = {
+                flag:'FAIL',
+                data:[],
+                message:'注册失败'
+            }
+            res.send(JSON.stringify(obj))
+        }
+        console.log(result);
+        if(result.length>0){
+            obj = {
+                flag:'FAIL',
+                data:[],
+                message:'用户名已存在'
+            }
+            res.send(JSON.stringify(obj))
+        }else if(result.length<=0){
+            sqlConnect.query(sql1,function(err,result){
+                if(err){
+                    console.log('err',err.message);
+                    obj = {
+                        flag:'FAIL',
+                        data:[],
+                        message:'注册失败'
+                    }
+                    res.send(JSON.stringify(obj))
+                }
+                obj = {
+                    flag:'SUCCESS',
+                    data:[],
+                    message:'注册成功'
+                }
+                res.send(JSON.stringify(obj))
+                })
+        }
+        })
 })
 
 app.listen(port)
