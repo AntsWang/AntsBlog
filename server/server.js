@@ -7,6 +7,7 @@ const mysql_config = require("./mysql");
 
 const port = process.env.PORT || 8080
 const app = express()
+var sd = require('silly-datetime');
 
 const data = {
     code: 200,
@@ -37,17 +38,71 @@ app.all("*", function(req, res, next) {
 // app.get('*', function (request, response){
 //  response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
 // })
-app.get('/list', function (request, response) {
-    // response.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});//设置response编码为utf-8
-    response.json(JSON.stringify(data))
+app.get('/list', function (req, res) {
+    let sql = `select * from blogs`,obj = {
+        flag:'SUCCESS',
+        data:[],
+        message:''
+    };
+    sqlConnect.query(sql,function(err,result){
+        if(!err){
+if(result.length<=0){
+    obj = {
+        flag:'FAIL',
+        data:[],
+        message:'无数据'
+    }
+res.send(JSON.stringify(obj))
+}else{
+    console.log(result);
+    obj = {
+        flag:'SUCCESS',
+        data:result,
+        message:'查询成功'
+    }
+    res.send(JSON.stringify(obj))
+}
+        }
+
+    })
+})
+app.get('/p/:id', function (req, res) {
+    console.log(req.params.id);
+    let id = req.params.id;
+    let sql = `select * from blogs where id=${id}`,obj = {
+        flag:'SUCCESS',
+        data:null,
+        message:''
+    };
+    sqlConnect.query(sql,function(err,result){
+        if(!err){
+if(result.length<=0){
+    obj = {
+        flag:'FAIL',
+        data:null,
+        message:'无数据'
+    }
+res.send(JSON.stringify(obj))
+}else{
+    console.log(result);
+    obj = {
+        flag:'SUCCESS',
+        data:result[0],
+        message:'查询成功'
+    }
+    res.send(JSON.stringify(obj))
+}
+        }
+
+    })
 })
 app.post('/login',function(req,res){
     let name = req.body.userName,password = req.body.password;
-    let sql2 = `select * from user where username='${name}'`;
+    let sql2 = `select * from user where username='${name}' and password='${password}'`;
      let obj = {
          flag:'SUCCESS',
          data:[],
-         message:'注册成功'
+         message:''
      }
      sqlConnect.query(sql2,function(err,result){
          console.log(err,result);
@@ -65,7 +120,7 @@ app.post('/login',function(req,res){
             obj = {
                 flag:'FAIL',
                 data:[],
-                message:'用户不存在'
+                message:'用户名或密码错误'
             }
             res.send(JSON.stringify(obj))
         }else{
@@ -124,6 +179,36 @@ app.post('/addUser',function(req,res){
                 res.send(JSON.stringify(obj))
                 })
         }
+        })
+})
+
+app.post('/publish',function(req,res){
+    let title = req.body.title,summary = req.body.summary,content=req.body.content,createTime =new Date().getTime();
+    let sql1 = `insert into blogs (title,summary,content,createTime) values('${title}','${summary}','${content}','${createTime}')`;
+     let obj = {
+         flag:'SUCCESS',
+         data:[],
+         message:'发布成功'
+     }
+     sqlConnect.query(sql1,function(err,result){
+         console.log(err,result);
+        if(err){
+            console.log('err',err.message);
+            obj = {
+                flag:'FAIL',
+                data:[],
+                message:'发布失败'
+            }
+            res.send(JSON.stringify(obj))
+        }else{
+            obj = {
+                flag:'SUCCESS',
+                data:[],
+                message:'发布成功'
+            }
+            res.send(JSON.stringify(obj))
+        }
+        console.log(result);
         })
 })
 

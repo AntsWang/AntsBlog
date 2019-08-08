@@ -7,6 +7,7 @@ import Home from './page/home/home';
 import Detail from './page/detail/index';
 import NoMatch from './components/nomatch/index';
 import Storage from './storage/index';
+import Publish from './page/publish/index';
 
 class App extends Component {
   constructor(props){
@@ -31,8 +32,9 @@ class App extends Component {
         <Switch>
         <Route exact path="/" component={Login}/>
         <Route path="/home" component={Home} />
-        <Route path="/detail/:id" component={Detail} />
+        <Route path="/p/:id" component={Detail} />
         <Route path="/register" component={Register} />
+        <Route path="/publish" component={Publish} />
         <Route component={NoMatch}/>
         </Switch>
     </Router>

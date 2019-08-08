@@ -2,16 +2,17 @@ import React,{ Component } from "react";
 import {Link} from 'react-router-dom';
 import Carousel from '../carousel/index';
 import Pagination from '../pagination/index';
+import Moment from 'moment';
 import './content.css'
 export default class Content extends Component{
     renderItem(item,index){
         return (
             <div key = {index} className="article-item">
-                <Link to={'/p/'+item.id}><h2>回家的回家放寒假</h2></Link>
-                <p>更好地规划规划法规和和规划法规</p>
+                <Link to={'/p/'+item.id}><h2>{item.title}</h2></Link>
+                <p>{item.summary}</p>
                 <div>
-                    <span>2018-09-12</span>
-                    <span>3</span>
+                    <span>{Moment(item.createTime).format("YYYY-MM-DD HH:mm:ss")}</span>
+                  
                 </div>
             </div>
         )
@@ -27,14 +28,14 @@ export default class Content extends Component{
                <div className="split-line"></div>
                <div className="article">
                 {
-                   [{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8}].map((item,index)=>{
+                   this.props.list&&this.props.list.length>0?this.props.list.map((item,index)=>{
                       return this.renderItem(item,index)
-                   })
+                   }):<div style={{textAlign:'center'}}>暂无数据</div>
                 }
                 </div>
-                <a className="more">
+                {/* <a className="more">
                     阅读更多
-                </a>
+                </a> */}
 
             </div>
         )

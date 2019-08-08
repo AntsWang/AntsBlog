@@ -15,6 +15,9 @@ import Storage from '../../storage/index';
 class Home extends Component{
   constructor(props){
   super(props);
+  this.state = {
+    list:[]
+  }
   //this.getData = this.getData.bind(this);
   }
   componentDidMount(){
@@ -26,6 +29,9 @@ class Home extends Component{
     console.log(1111);
     Util.get(Util.baseUrl+"/list",(data)=>{
                 console.log(data);
+                this.setState({
+                  list:data.data||[]
+                })
     },(err)=>{
 console.log(err);
     });
@@ -34,7 +40,7 @@ console.log(err);
       return (
         <div className="home-container">
           <Header/>
-          <Content/>
+          <Content list = {this.state.list}/>
         </div>)
   }
 }

@@ -1,3 +1,13 @@
 .home-container{
-    flex:1
+    flex:1;
+    }
+    .container-detail{
+        display:flex;
+        flex:1;
+        justify-content: center
+    }
+    .detail{
+        align-items: center;
+    display: flex;
+    flex-direction: column;
     }

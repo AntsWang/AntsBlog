@@ -7,12 +7,17 @@ import {loginOut} from '../redux/action';
 import { BrowserRouter as Router, Route, Link,Redirect,Switch,withRouter } from "react-router-dom";
 class DropdownItem extends Component{
     onClick({ key }){
+      if(key==0){
+        this.props.history.push('/home');
+      }
+      if(key == 1){
+        this.props.history.push('/publish');
+      }
       if(key==2){
         this.props.loginOut();
         console.log( this.props);
          this.props.history.replace('/');
       }
-        message.info(`Click on item ${key}p`);
       };
       render(){
         const menu = (
