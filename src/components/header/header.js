@@ -19,9 +19,9 @@ export default class Header extends Component {
       style={{ width: 200 }}
     />
         </div> 
-        <div className="h-7 flex1">
+        {/* <div className="h-7 flex1">
            <Dropdown keys={["主页","发表博客","退出"]}/>
-        </div> 
+        </div>  */}
       </div>
     )
   }

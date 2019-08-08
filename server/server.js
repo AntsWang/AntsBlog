@@ -54,7 +54,6 @@ if(result.length<=0){
     }
 res.send(JSON.stringify(obj))
 }else{
-    console.log(result);
     obj = {
         flag:'SUCCESS',
         data:result,
@@ -66,8 +65,7 @@ res.send(JSON.stringify(obj))
 
     })
 })
-app.get('/p/:id', function (req, res) {
-    console.log(req.params.id);
+app.get('/blog/p/:id', function (req, res) {
     let id = req.params.id;
     let sql = `select * from blogs where id=${id}`,obj = {
         flag:'SUCCESS',
@@ -84,7 +82,6 @@ if(result.length<=0){
     }
 res.send(JSON.stringify(obj))
 }else{
-    console.log(result);
     obj = {
         flag:'SUCCESS',
         data:result[0],
@@ -105,9 +102,7 @@ app.post('/login',function(req,res){
          message:''
      }
      sqlConnect.query(sql2,function(err,result){
-         console.log(err,result);
         if(err){
-            console.log('err',err.message);
             obj = {
                 flag:'FAIL',
                 data:[],
@@ -115,7 +110,6 @@ app.post('/login',function(req,res){
             }
             res.send(JSON.stringify(obj))
         }
-        console.log(result);
         if(result.length<=0){
             obj = {
                 flag:'FAIL',
@@ -142,9 +136,7 @@ app.post('/addUser',function(req,res){
          message:'注册成功'
      }
      sqlConnect.query(sql2,function(err,result){
-         console.log(err,result);
         if(err){
-            console.log('err',err.message);
             obj = {
                 flag:'FAIL',
                 data:[],
@@ -152,7 +144,6 @@ app.post('/addUser',function(req,res){
             }
             res.send(JSON.stringify(obj))
         }
-        console.log(result);
         if(result.length>0){
             obj = {
                 flag:'FAIL',
@@ -163,7 +154,6 @@ app.post('/addUser',function(req,res){
         }else if(result.length<=0){
             sqlConnect.query(sql1,function(err,result){
                 if(err){
-                    console.log('err',err.message);
                     obj = {
                         flag:'FAIL',
                         data:[],
@@ -191,9 +181,7 @@ app.post('/publish',function(req,res){
          message:'发布成功'
      }
      sqlConnect.query(sql1,function(err,result){
-         console.log(err,result);
         if(err){
-            console.log('err',err.message);
             obj = {
                 flag:'FAIL',
                 data:[],
@@ -208,7 +196,6 @@ app.post('/publish',function(req,res){
             }
             res.send(JSON.stringify(obj))
         }
-        console.log(result);
         })
 })
 

@@ -1,16 +1,11 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link,Redirect,Switch } from "react-router-dom";
 
-import Login from './page/login/login';
-import Register from './page/register/index';
-import Home from './page/home/home';
-import Detail from './page/detail/index';
-import NoMatch from './components/nomatch/index';
-import Storage from './storage/index';
-import Publish from './page/publish/index';
+import Login from '../login/login';
+import Register from '../register/index';
+import Storage from '../../storage/index';
+import Publish from '../publish/index';
 
-import Blog from './page/blog/index';
-import Background from './page/background/index'
 class App extends Component {
   constructor(props){
     super(props);
@@ -32,9 +27,10 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-        <Route path="/blog" component={Blog}/>
-        <Route path="/background" component={Background} />
-        <Redirect to="/blog" />
+        <Route exact path="/background/login" component={Login}/>
+        <Route path="/background/register" component={Register} />
+        <Route path="/background/publish" component={Publish} />
+        <Redirect to="/background/login"/>
         </Switch>
     </Router>
     )

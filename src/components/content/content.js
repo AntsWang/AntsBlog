@@ -8,7 +8,7 @@ export default class Content extends Component{
     renderItem(item,index){
         return (
             <div key = {index} className="article-item">
-                <Link to={'/p/'+item.id}><h2>{item.title}</h2></Link>
+                <Link to={'/blog/p/'+item.id}><h2>{item.title}</h2></Link>
                 <p>{item.summary}</p>
                 <div>
                     <span>{Moment(item.createTime).format("YYYY-MM-DD HH:mm:ss")}</span>
