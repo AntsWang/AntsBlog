@@ -1,0 +1,12 @@
+/**index.wxss**/
+.container{
+  display: flex;
+  background-color:"#00bfff";
+  align-items: center
+}
+.title{
+  justify-content: center;
+align-items: center;
+display: flex;
+
+}

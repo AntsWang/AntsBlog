@@ -1,0 +1,31 @@
+<!--index.wxml-->
+<import src="template.wxml"/>
+<import src="template2.wxml"/>
+<view class="container">
+<view class="title">
+<text style="color:#fff;text-align:center;line-height:1.2">{{nowData.basic.location}}</text>
+<text style="color:#fff;position:absolute;top:center;right:10px;font-size:12px;">{{nowData.update.loc}}</text>
+</view>
+<view style="height:100px;line-height:100px;text-align:center;font-size:50px">
+<text style="color:#fff">{{nowData.now.tmp}}°</text>
+</view>
+
+
+<text style="text-align:center;line-height:2;font-size:12px">{{nowData.now.cond_txt}}</text>
+<text style="text-align:center;text-align: center;font-size: 12px;width: 90px;background-color: #ccc;border-radius: 10px;height: 20px;line-height: 20px;">{{nowData.now.wind_dir}}({{nowData.now.wind_sc}}级）</text>
+<scroll-view scroll-x style="height:100px;width:100%;background-color:#ccc;margin-top:10px;padding:10px 0">
+<view style="display:flex;">
+<block wx:for="{{tenData.daily_forecast}}">
+<template is='weatherItem' data="{{...item}}"></template>
+</block>
+</view>
+</scroll-view>
+<view>
+<block wx:for="{{lifeStyle.lifestyle}}">
+<template is='leftStyle' data="{{...item}}"></template>
+</block>
+</view>
+<!-- <block wx:for="{{leftStyle.lifestyle}}">
+<template is='leftStyle' data="{{...item}}"></template>
+</block> -->
+</view>

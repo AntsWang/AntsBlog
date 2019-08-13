@@ -1,0 +1,8 @@
+<template name='weatherItem'>
+<view style="font-size:12px;display:inline-block;width: 375rpx;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+<text>{{date}}</text>
+<text>{{tmp_min}}~{{tmp_max}}°C</text>
+<text>{{cond_txt_d}}</text>
+<text>{{wind_dir}}{{wind_sc}}</text>
+</view>
+</template>

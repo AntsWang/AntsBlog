@@ -1,0 +1,6 @@
+<template name='leftStyle'>
+<view style="margin-top:10px;margin-bottom:10px;font-size:12px;width: 375rpx;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+<text style="margin-bottom:6px">{{brf}}</text>
+<text>{{txt}}</text>
+</view>
+</template>
