@@ -34,7 +34,7 @@ class App extends Component {
         <Switch>
         <Route path="/blog" component={Blog}/>
         <Route path="/background" component={Background} />
-        <Redirect to="/blog" />
+        <Redirect to="/background" />
         </Switch>
     </Router>
     )

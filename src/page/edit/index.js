@@ -14,10 +14,20 @@ class NormalLoginForm extends React.Component {
         this.state = {
             editorState:null,
             title:'',
-            summary:''
+            summary:'',
+            id:''
         } 
     }
-
+      componentDidMount(){
+        console.log(this.props);
+        let detail = this.props.location.state.detail;
+        this.setState({
+          editorState:BraftEditor.createEditorState(detail.content),
+          title:detail.name,
+          summary:detail.summary,
+          id:detail.id
+        })
+      }
     submitContent(){
         // 在编辑器获得焦点时按下ctrl+s会执行此方法
         // 编辑器内容提交到服务端之前，可直接调用editorState.toHTML()来获取HTML格式的内容
@@ -42,9 +52,10 @@ message.info('请填写全部内容后发布');
         let param = {
             title,
             summary,
-            content:editorState.toHTML()
+            content:editorState.toHTML(),
+            id:this.state.id
         }
-        Utils.post(Utils.baseUrl+'/publish',param,function(res){
+        Utils.post(Utils.baseUrl+'/edit',param,function(res){
             console.log(res)
             message.info(res.message);
             if(res.flag=='SUCCESS'){
@@ -53,13 +64,12 @@ message.info('请填写全部内容后发布');
                 title:'',
                 summary:''
               })
-              //that.props.history.replace({pathname:"/home"});
+              that.props.history.goBack();
             }
   
           },function(err){
             console.log(err);
           })
-        console.log(title,summary,editorState&&editorState.toHTML());
     }
     
 } 
@@ -68,7 +78,7 @@ message.info('请填写全部内容后发布');
     return (
         <div className="wraper">
  <div className="container">
-            <h3 className="title">发表博客</h3>
+            <h3 className="title">编辑博客</h3>
            <Input value={this.state.title} onChange={(value)=>this.setText(value,"title")} className="head" placeholder="请输入标题" addonBefore={<Icon type="setting" />}/>
            <TextArea value = {this.state.summary} onChange={(text)=>this.setText(text,"summary")} className="miaoshu"
       placeholder="请输入描述"
@@ -83,7 +93,7 @@ message.info('请填写全部内容后发布');
     </div>
     
           <Button onClick={()=>{this.publish()}} className="btn" type="primary" block>
-      发布
+      编辑
     </Button>
       </div>
 

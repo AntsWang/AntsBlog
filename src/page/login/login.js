@@ -21,7 +21,7 @@ class NormalLoginForm extends React.Component {
           console.log(res)
           message.info(res.message);
           if(res.flag=='SUCCESS'){
-            that.props.history.replace({pathname:"/home"});
+            that.props.history.replace({pathname:"/background/manager"});
           }
 
         },function(err){

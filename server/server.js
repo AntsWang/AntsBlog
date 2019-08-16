@@ -9,17 +9,6 @@ const port = process.env.PORT || 8080
 const app = express()
 var sd = require('silly-datetime');
 
-const data = {
-    code: 200,
-    message: "success",
-    data: [{
-        id: 1,
-        title: "恢复规划法规和",
-        "sub": "的工会经费等各环节换个房间很干净的复合结构看的风景更好的九分裤",
-        time: "2018-09-12",
-        view: 12
-    }]
-}
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
@@ -38,6 +27,7 @@ app.all("*", function(req, res, next) {
 // app.get('*', function (request, response){
 //  response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
 // })
+
 app.get('/list', function (req, res) {
     let sql = `select * from blogs`,obj = {
         flag:'SUCCESS',
@@ -89,6 +79,27 @@ res.send(JSON.stringify(obj))
     }
     res.send(JSON.stringify(obj))
 }
+        }
+
+    })
+})
+app.get('/delete/:id', function (req, res) {
+    let id = req.params.id;
+    console.log(req.params,"delete",id)
+    let sql = `delete from blogs where id=${id}`,obj = {
+        flag:'SUCCESS',
+        data:null,
+        message:''
+    };
+    sqlConnect.query(sql,function(err,result){
+        console.log(result);
+        if(!err){
+    let obj = {
+        flag:'SUCCESS',
+        data:[],
+        message:'删除成功'
+    }
+    res.send(JSON.stringify(obj))
         }
 
     })
@@ -193,6 +204,35 @@ app.post('/publish',function(req,res){
                 flag:'SUCCESS',
                 data:[],
                 message:'发布成功'
+            }
+            res.send(JSON.stringify(obj))
+        }
+        })
+})
+
+app.post('/edit',function(req,res){
+    let title = req.body.title,summary = req.body.summary,content=req.body.content,id =req.body.id;
+    //let sql1 = `update blogs (title,summary,content,createTime) values('${title}','${summary}','${content}','${createTime}')`;
+    let sql1 = `update blogs set title = '${title}',summary ='${summary}', content ='${content}' where id =${id} `;
+     let obj = {
+         flag:'SUCCESS',
+         data:[],
+         message:'编辑成功'
+     }
+     sqlConnect.query(sql1,function(err,result){
+         console.log(result);
+        if(err){
+            obj = {
+                flag:'FAIL',
+                data:[],
+                message:'编辑失败'
+            }
+            res.send(JSON.stringify(obj))
+        }else{
+            obj = {
+                flag:'SUCCESS',
+                data:[],
+                message:'编辑成功'
             }
             res.send(JSON.stringify(obj))
         }

@@ -5,6 +5,8 @@ import Login from '../login/login';
 import Register from '../register/index';
 import Storage from '../../storage/index';
 import Publish from '../publish/index';
+import Manager from '../manager/index';
+import Edit from '../edit/index';
 
 class App extends Component {
   constructor(props){
@@ -30,6 +32,8 @@ class App extends Component {
         <Route exact path="/background/login" component={Login}/>
         <Route path="/background/register" component={Register} />
         <Route path="/background/publish" component={Publish} />
+        <Route path="/background/edit/:id" component={Edit} />
+        <Route path="/background/manager" component={Manager} />
         <Redirect to="/background/login"/>
         </Switch>
     </Router>

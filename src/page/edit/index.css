@@ -1,0 +1,24 @@
+.wraper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+}
+.title{
+  height:50px;
+  line-height: 50px;
+  text-align: center;
+}
+.container{
+  width:700px;
+}
+.head{
+  margin-bottom: 30px;
+}
+.btn{
+  margin-top: 30px;
+}
+.braft{
+  border:1px solid #ccc;
+  margin-top: 30px;
+}

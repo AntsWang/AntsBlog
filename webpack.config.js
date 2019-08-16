@@ -18,7 +18,8 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist'),           
     compress: true,
     port: 9000,
-    historyApiFallback:true
+    historyApiFallback:true,
+    disableHostCheck: true
   },
   module: {                                            
     rules: [                                          
@@ -29,7 +30,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',                      
           options: {
-            presets: ['es2017', 'react'],
+            presets: ['react','es2017','stage-0'],
             plugins: [//修改这里的
               ["import", {libraryName: "antd", style: "css"}]//修改这里的
           ] //修改这里的
