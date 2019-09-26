@@ -24,8 +24,7 @@ export default class Content extends Component{
     render(){
         return(
             <div className="content">
-               <Carousel/>
-               <div className="split-line"></div>
+               {/* <Carousel/> */}
                <div className="article">
                 {
                    this.props.list&&this.props.list.length>0?this.props.list.map((item,index)=>{

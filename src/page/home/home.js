@@ -38,7 +38,7 @@ console.log(err);
   }
   render(){
       return (
-        <div className="home-container">
+        <div className="list-home-container">
           <Header/>
           <Content list = {this.state.list}/>
         </div>)

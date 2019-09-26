@@ -61,15 +61,19 @@ class  Manager extends React.Component {
     render() {
         return (
             <div className="mcontainer">
-                <div className="left">
-                <ManagerMenu changeType = {this.changeType}/>
-                </div>
+                {
+                    this.state.type==1?<div className = 'mtitle' style={{width:'100%',height:30,display:'flex'}}>
+                    <div style={{fontSize:16,fontWeight:"bold"}}>博客管理</div>
+                    <div style={{fontSize:30,fontWeight:"bold"}} onClick = {()=>{this.setState({type:2})}}>+</div>
+                </div>:null
+                }
+
                 <div className="right">
                     {
                         this.state.type==1?<Table showModal = {(id)=>this.showModal(id)}/>:null
                     }
                                         {
-                        this.state.type==4?<Publish/>:null
+                        this.state.type==2?<Publish/>:null
                     }
                 </div>
             <Modals handleOk = {()=>{this.handleOk()}} showLoading = {this.state.showLoading} hideModal = {this.hideModal} text = {"确定删除该文章吗?"} showModal = {this.state.showModal}/>

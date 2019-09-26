@@ -3,6 +3,7 @@ import './index.css';
 import Utils from '../../http/http';
 import Header from '../../components/header/header';
 import  { Form, Icon, Input, Button, Checkbox,message } from "antd";
+const { TextArea } = Input;
 import { BrowserRouter as Router, Route, Link,Redirect,Switch,withRouter } from "react-router-dom";
 import Moment from 'moment'
 class Detail extends Component{
@@ -39,7 +40,7 @@ render(){
     <div className="home-container">
             <Header/>
             <div className="container-detail">
-                  <div style={{width:700}}>
+                  <div style={{maxWidth:700}}>
                     <h3 style={{textAlign:"center",marginTop:20,marginBottom:10}}>{
                       title
                     }</h3>
@@ -47,6 +48,7 @@ render(){
                     <div className="detail" dangerouslySetInnerHTML={{ __html: content }}></div>
                   </div>
               </div>
+             
     </div>)
 }}
 

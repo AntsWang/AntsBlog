@@ -67,7 +67,7 @@ message.info('请填写全部内容后发布');
     const { editorState } = this.state;
     return (
         <div className="wraper">
- <div className="container">
+ <div className="containerPub">
             <h3 className="title">发表博客</h3>
            <Input value={this.state.title} onChange={(value)=>this.setText(value,"title")} className="head" placeholder="请输入标题" addonBefore={<Icon type="setting" />}/>
            <TextArea value = {this.state.summary} onChange={(text)=>this.setText(text,"summary")} className="miaoshu"

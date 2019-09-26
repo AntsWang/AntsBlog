@@ -1,12 +1,6 @@
 .content{
-    margin: 20px auto;
+    padding:0 10px;
     background: #fff;
-    width:960px;
-}
-.split-line{
-    border-bottom: 1px dashed #ccc;
-    margin-top:10px;
-    margin-bottom: 10px;
 }
 .article-item{
     border-bottom: 1px solid #ccc;

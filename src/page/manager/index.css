@@ -1,6 +1,7 @@
 .mcontainer{
     display: flex;
     flex:1;
+    flex-direction: column;
   }
   .left{
     width:260px;
@@ -12,4 +13,13 @@
   }
   .ant-table-wrapper{
     flex:1
+  }
+  .mtitle{
+    padding-left: 10px;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    padding-right: 10px;
+    justify-content: space-between;
+    align-items: center
   }

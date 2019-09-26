@@ -9,8 +9,9 @@
   line-height: 50px;
   text-align: center;
 }
-.container{
-  width:700px;
+.containerPub{
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .head{
   margin-bottom: 30px;
