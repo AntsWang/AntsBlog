@@ -14,8 +14,10 @@ class NormalLoginForm extends React.Component {
         this.state = {
             editorState:null,
             title:'',
-            summary:''
+            summary:'',
+            image:''
         } 
+        this.input = React.createRef();
     }
 
     submitContent(){
@@ -35,14 +37,15 @@ setText(text,type){
     })
 }
 publish(){
-    let {title,summary,editorState} = this.state,that = this;
+    let {title,summary,editorState,image} = this.state,that = this;
     if(title==""||summary==""||editorState==null){
 message.info('请填写全部内容后发布');
     }else{
         let param = {
             title,
             summary,
-            content:editorState.toHTML()
+            content:editorState.toHTML(),
+            image
         }
         Utils.post(Utils.baseUrl+'/publish',param,function(res){
             console.log(res)
@@ -63,12 +66,36 @@ message.info('请填写全部内容后发布');
     }
     
 } 
+handleImageChange(e){
+  let that = this;
+  let {image} = that.state,file = e.target.files[0];
+console.log(e.target.files[0])
+let fr = new FileReader();
+fr.readAsDataURL(file)
+fr.onload = function(){
+  console.log(fr.result)
+    that.setState({
+      image:this.result
+    })
+}
+
+}
   render() {
     const { editorState } = this.state;
     return (
         <div className="wraper">
  <div className="containerPub">
             <h3 className="title">发表博客</h3>
+            <div style={{display:'flex',flexDirection:"column",alignItems:'center'}}>
+              {
+                this.state.image?<img style={{width:100,height:100}} src = {this.state.image}/>:null
+              }
+               
+               <label style={{paddingTop:10,paddingBottom:10}} for='upload'>封面图片</label>
+               <Input id = 'upload' style={{display:"none"}}  onChange={(e)=>this.handleImageChange(e)} onClick = {()=>{}} ref = {this.input}  type='file' accept='image/*'/>
+               
+            </div>
+            
            <Input value={this.state.title} onChange={(value)=>this.setText(value,"title")} className="head" placeholder="请输入标题" addonBefore={<Icon type="setting" />}/>
            <TextArea value = {this.state.summary} onChange={(text)=>this.setText(text,"summary")} className="miaoshu"
       placeholder="请输入描述"

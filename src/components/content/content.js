@@ -3,11 +3,13 @@ import {Link} from 'react-router-dom';
 import Carousel from '../carousel/index';
 import Pagination from '../pagination/index';
 import Moment from 'moment';
+import Utils from '../../http/http';
 import './content.css'
 export default class Content extends Component{
     renderItem(item,index){
         return (
             <div key = {index} className="article-item">
+                <img src={Utils.baseUrl+item.imgUrl}/>
                 <Link to={'/blog/p/'+item.id}><h2>{item.title}</h2></Link>
                 <p>{item.summary}</p>
                 <div>

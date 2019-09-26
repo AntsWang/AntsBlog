@@ -4,18 +4,23 @@ const mysql = require("mysql");
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mysql_config = require("./mysql");
-
+const fs  = require('fs')
 const port = process.env.PORT || 8080
 const app = express()
 var sd = require('silly-datetime');
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({limit:'50mb',extended:false}));
+app.use(bodyParser.json({limit:'50mb'}));
+
+
+
+
 app.use(cors());
 app.use(express.static(__dirname + '/dist'));
 var sqlConnect = mysql.createConnection(mysql_config);
 sqlConnect.connect();
-
 app.all("*", function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type,Token");
@@ -182,10 +187,25 @@ app.post('/addUser',function(req,res){
         }
         })
 })
+function saveImage(imgData){
+    let url = null;
+    var base64Data = imgData.replace(/^data:image\/\w+;base64,/, '')
+    var dataBuffer = new Buffer(base64Data, 'base64')
+    return new Promise((resolve,reject)=>{
+        fs.writeFile('./images/image.png', dataBuffer, function(err) {
+            console.log(err)
+           if (err) reject(url);
+           url = '/images/image.png';
+           console.log('图片保存成功')
+           resolve(url);
+     })  
+    })
 
-app.post('/publish',function(req,res){
-    let title = req.body.title,summary = req.body.summary,content=req.body.content,createTime =new Date().getTime();
-    let sql1 = `insert into blogs (title,summary,content,createTime) values('${title}','${summary}','${content}','${createTime}')`;
+}
+app.post('/publish',async function(req,res){
+    let title = req.body.title,summary = req.body.summary,content=req.body.content,createTime =new Date().getTime(),image = req.body.image;
+    let url = await saveImage(image);
+    let sql1 = `insert into blogs (title,summary,content,createTime,imgUrl) values('${title}','${summary}','${content}','${createTime}','${url}')`;
      let obj = {
          flag:'SUCCESS',
          data:[],
@@ -193,6 +213,7 @@ app.post('/publish',function(req,res){
      }
      sqlConnect.query(sql1,function(err,result){
         if(err){
+            console.log(err)
             obj = {
                 flag:'FAIL',
                 data:[],

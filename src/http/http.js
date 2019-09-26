@@ -1,5 +1,5 @@
 const util = {
-    baseUrl:'http://localhost:8080',
+    baseUrl:process.env.NODE_ENV=='production'?'http://139.155.5.93:8080':'http://localhost:8080',
     get:function(url,successCallback,failCallback){
         fetch(url,{
             headers:{
