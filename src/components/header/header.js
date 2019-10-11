@@ -10,9 +10,9 @@ export default class Header extends Component {
       <div className="header">
         <NavLink to="/home" className="h-1 flex1">博客首页</NavLink> 
         <NavLink className="h-4 flex1">网易云音乐</NavLink>
-        {/* <div className="h-7 flex1">
+        <div className="h-7 flex1">
            <Dropdown keys={["主页","发表博客","退出"]}/>
-        </div>  */}
+        </div> 
       </div>
     )
   }

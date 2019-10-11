@@ -5,11 +5,11 @@ import  { Form, Icon, Input, Button, Checkbox,message } from "antd";
 import Storage from '../../storage/index';
 import {connect} from 'react-redux';
 import {loginIn,loginOut} from '../../redux/action';
-import {Link} from 'react-router-dom';
+import {Link,Redirect} from 'react-router-dom';
 import Utils from '../../http/http';
 import Table from './arctileEdit';
 import Modals from '../../components/modal/index';
-import Publish from '../publish/index'
+import Publish from '../publish/index';
 class  Manager extends React.Component {
     constructor(props) {
         super(props);
@@ -41,11 +41,12 @@ class  Manager extends React.Component {
     }
     //确定删除
     handleOk = ()=>{
+        let that = this;
         this.setState({
             showLoading:true
         })
-        console.log("delete",Utils.baseUrl+'/delete/'+this.state.deleteId);
-        Utils.get(Utils.baseUrl+'/delete/'+this.state.deleteId,function(res){
+        console.log("delete",Utils.baseUrl+'/user/delete/'+this.state.deleteId);
+        Utils.get(Utils.baseUrl+'/user/delete/'+this.state.deleteId,function(res){
             console.log(res)
             message.info(res.message);
             if(res.flag=='SUCCESS'){
@@ -53,6 +54,7 @@ class  Manager extends React.Component {
                     showLoading:false,
                     showModal:false
                 })
+            }else if(res.flag=='login'){
             }
           },function(err){
             console.log(err);

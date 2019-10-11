@@ -32,7 +32,7 @@ class DropdownItem extends Component{
           return(
      <Dropdown overlay={menu}>
       <a className="ant-dropdown-link" href="#">
-      <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> <Icon type="down" />
+      <Avatar icon='user' />
       </a>
     </Dropdown>
           )

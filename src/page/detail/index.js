@@ -5,7 +5,8 @@ import Header from '../../components/header/header';
 import  { Form, Icon, Input, Button, Checkbox,message } from "antd";
 const { TextArea } = Input;
 import { BrowserRouter as Router, Route, Link,Redirect,Switch,withRouter } from "react-router-dom";
-import Moment from 'moment'
+import Moment from 'moment';
+import Comment from '../../components/comment';
 class Detail extends Component{
   constructor(props){
 super(props)
@@ -48,7 +49,7 @@ render(){
                     <div className="detail" dangerouslySetInnerHTML={{ __html: content }}></div>
                   </div>
               </div>
-             
+              <Comment/>
     </div>)
 }}
 

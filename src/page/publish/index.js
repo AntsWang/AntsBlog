@@ -47,7 +47,7 @@ message.info('请填写全部内容后发布');
             content:editorState.toHTML(),
             image
         }
-        Utils.post(Utils.baseUrl+'/publish',param,function(res){
+        Utils.post(Utils.baseUrl+'/user/publish',param,function(res){
             console.log(res)
             message.info(res.message);
             if(res.flag=='SUCCESS'){
