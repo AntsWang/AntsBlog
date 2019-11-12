@@ -10,7 +10,8 @@ import Storage from './storage/index';
 import Publish from './page/publish/index';
 
 import Blog from './page/blog/index';
-import Background from './page/background/index'
+import Background from './page/background/index';
+import Upload from './page/upload/index';
 class App extends Component {
   constructor(props){
     super(props);
@@ -34,6 +35,7 @@ class App extends Component {
         <Switch>
         <Route path="/blog" component={Blog}/>
         <Route path="/background" component={Background} />
+        <Route path="/upload" component={Upload} />
         <Redirect to="/blog" />
         </Switch>
     </Router>

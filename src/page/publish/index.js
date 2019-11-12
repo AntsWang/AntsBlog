@@ -15,7 +15,8 @@ class NormalLoginForm extends React.Component {
             editorState:null,
             title:'',
             summary:'',
-            image:''
+            image:'',
+            imageName:''
         } 
         this.input = React.createRef();
     }
@@ -37,7 +38,7 @@ setText(text,type){
     })
 }
 publish(){
-    let {title,summary,editorState,image} = this.state,that = this;
+    let {title,summary,editorState,image,imageName} = this.state,that = this;
     if(title==""||summary==""||editorState==null){
 message.info('请填写全部内容后发布');
     }else{
@@ -45,7 +46,8 @@ message.info('请填写全部内容后发布');
             title,
             summary,
             content:editorState.toHTML(),
-            image
+            image,
+            imageName
         }
         Utils.post(Utils.baseUrl+'/user/publish',param,function(res){
             console.log(res)
@@ -69,13 +71,14 @@ message.info('请填写全部内容后发布');
 handleImageChange(e){
   let that = this;
   let {image} = that.state,file = e.target.files[0];
-console.log(e.target.files[0])
+console.log('2222220',e.target.files[0].name)
 let fr = new FileReader();
 fr.readAsDataURL(file)
 fr.onload = function(){
   console.log(fr.result)
     that.setState({
-      image:this.result
+      image:this.result,
+      imageName:file.name
     })
 }
 

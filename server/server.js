@@ -24,8 +24,8 @@ function verifyToken(token) {
 
 
 
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
-app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '1024mb', extended: false }));
+app.use(bodyParser.json({ limit: '1024mb' }));
 app.use(cors());
 app.use(express.static(__dirname + '/dist'));
 app.all("*", function (req, res, next) {
@@ -212,24 +212,35 @@ app.post('/addUser', function (req, res) {
         }
     })
 })
-function saveImage(imgData) {
+function saveImage(imgData,imageName) {
+    console.log(imgData);
     let url = null;
     var base64Data = imgData.replace(/^data:image\/\w+;base64,/, '')
     var dataBuffer = new Buffer(base64Data, 'base64')
     return new Promise((resolve, reject) => {
-        fs.writeFile('./images/image.png', dataBuffer, function (err) {
+        fs.writeFile('E:/resource/images/'+imageName, dataBuffer, function (err) {
             console.log(err)
             if (err) reject(url);
-            url = '/images/image.png';
+            url = '/images/'+imageName;
             console.log('图片保存成功')
             resolve(url);
         })
     })
 
 }
+app.post('/upload', async function (req, res) {
+    let file = req.body.file,fileName = req.body.fileName;
+    let url = await saveImage(file,fileName);
+    let obj = {
+        flag: 'SUCCESS',
+        data: url,
+        message: '上传成功'
+    }
+    res.send(JSON.stringify(obj));
+})
 app.post('/user/publish', async function (req, res) {
-    let title = req.body.title, summary = req.body.summary, content = req.body.content, createTime = new Date().getTime(), image = req.body.image;
-    let url = await saveImage(image);
+    let title = req.body.title, summary = req.body.summary, content = req.body.content, createTime = new Date().getTime(), image = req.body.image,imageName = req.body.imageName;
+    let url = await saveImage(image,imageName);
     let sql1 = `insert into blogs (title,summary,content,createTime,imgUrl) values('${title}','${summary}','${content}','${createTime}','${url}')`;
     let obj = {
         flag: 'SUCCESS',
