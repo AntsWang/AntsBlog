@@ -215,7 +215,8 @@ app.post('/addUser', function (req, res) {
 function saveImage(imgData,imageName) {
     console.log(imgData);
     let url = null;
-    var base64Data = imgData.replace(/^data:image\/\w+;base64,/, '')
+    var base64Data = imgData.replace(/^data(.*?)base64,/, '');
+    console.log('hahhahahah',base64Data)
     var dataBuffer = new Buffer(base64Data, 'base64')
     return new Promise((resolve, reject) => {
         fs.writeFile('E:/resource/images/'+imageName, dataBuffer, function (err) {

@@ -29,10 +29,20 @@ publish(){
 } 
 handleImageChange(e){
   let that = this;
-  let file = e.target.files[0];
+  let file = e.target.files[0],total = file.size;
 console.log('2222220',e.target.files[0].name)
 let fr = new FileReader();
-fr.readAsDataURL(file)
+fr.readAsDataURL(file);
+fr.onabort = function(){
+  message.info("文件上传中断，请重试");
+}
+fr.onerror = function(){
+  message.info("文件上传出错，请重试");
+}
+fr.onprogress = function(e){
+  let progress = (e.loaded/total)*100;
+      console.log('progress',progress)
+}
 fr.onload = function(){
   console.log(fr.result)
     that.setState({
